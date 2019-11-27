@@ -9,18 +9,22 @@ namespace LemonadeStand_3DayStarter
    
     class Day
     {
+        
         Store shop = new Store();
         public List<Customer> customers;
-
-        public Day()
+        Player player; 
+        Random randomCheck = new Random();
+        int compareForCustomerCreation = 0;
+        public Day(Player playerperam, Store store)
         {
             customers = new List<Customer> { };
-            customers.Add(new Customer());
-            customers.Add(new Customer());
-            customers.Add(new Customer());
-            customers.Add(new Customer());
-            
-
+            while (randomCheck.Next(1, 25) > compareForCustomerCreation )
+            {
+                compareForCustomerCreation++;
+                customers.Add(new Customer());
+            }
+            player = playerperam;
+            shop = store;
         }
         public void CustomerPhase()
         {
@@ -33,10 +37,11 @@ namespace LemonadeStand_3DayStarter
                 {
                     Console.WriteLine(customers[check].nameList[check] + " Did not buy lemonade");
                 }
-                else
-                {
+                
+                else if(player.recipe.pricePerCup < customers[check].customerWallet.money)
+                {                                 
                     Console.WriteLine(customers[check].nameList[check] + "Bought Some Lemonade");
-                    shop.CalculateTransactionAmount(1, priceOfLemonade);
+                    shop.CalculateTransactionAmount(1, player.recipe.pricePerCup);                          
                 }
             }          
            
@@ -44,11 +49,9 @@ namespace LemonadeStand_3DayStarter
         
         public bool CustomerCheck(Customer patron) 
         {
-            Random randomCheck = new Random();
-            int check = randomCheck.Next(1, 100);
-            Random randomCompare = new Random();
-            int compare = randomCheck.Next(1, 100);
-            if(check >= compare)
+           
+            int check = randomCheck.Next(1, 100);          
+            if(check >= 50)
             {
                 return true;
             }

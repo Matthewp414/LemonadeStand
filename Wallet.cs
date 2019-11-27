@@ -8,7 +8,7 @@ namespace LemonadeStand_3DayStarter
 {
     class Wallet
     {
-        private double money;
+        public double money;
 
         public double Money
         {
@@ -23,7 +23,7 @@ namespace LemonadeStand_3DayStarter
             if(isCustomer == true)
             {
                 Random randomMoney = new Random();
-                money = randomMoney.NextDouble(0,1.50);
+                money = randomMoney.Next(0, 1);
             }
             else 
             {

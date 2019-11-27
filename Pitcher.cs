@@ -8,5 +8,10 @@ namespace LemonadeStand_3DayStarter
 {
     class Pitcher
     {
+        public Pitcher(Recipe recipeperam)
+        {
+
+        }
+
     }
 }

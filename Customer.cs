@@ -10,10 +10,10 @@ namespace LemonadeStand_3DayStarter
 
     class Customer
     {
-        public string name;
+        
         bool isCustomer;
         public List<string> nameList = new List<string> {"Billy" , "Jane" , "Ropert", "Janes weird cousin" };
-        Wallet customerWallet;
+        public Wallet customerWallet;
         public Customer()
         {
             isCustomer = true;

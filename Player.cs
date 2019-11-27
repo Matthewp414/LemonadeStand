@@ -12,13 +12,19 @@ namespace LemonadeStand_3DayStarter
         
         public Inventory inventory;
         public Wallet wallet;
-        bool isCustomer; 
+        bool isCustomer;
+        public Recipe recipe;
+        Pitcher pitcher;
+
         // constructor (SPAWNER)
-        public Player()
+        public Player() 
+            
         {
             isCustomer = false;
             inventory = new Inventory();
             wallet = new Wallet(isCustomer);
+            recipe = new Recipe(inventory);
+
         }
 
         // member methods (CAN DO)
