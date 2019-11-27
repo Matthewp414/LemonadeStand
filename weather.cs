@@ -9,9 +9,12 @@ namespace LemonadeStand_3DayStarter
     class weather
     {
         public List<string> forecast;
+        public Random tempF;
+
         public weather()
         {
             forecast = new List<string> {"Raining","Windy","Clear","Sunny","Snowing", };
+            
         }
     }
 }

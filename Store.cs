@@ -36,6 +36,7 @@ namespace LemonadeStand_3DayStarter
             else
             {
                 Console.WriteLine("you dont have enough for this");
+                Console.ReadLine();
             }
         }
 
@@ -51,6 +52,8 @@ namespace LemonadeStand_3DayStarter
             else
             {
                 Console.WriteLine("you dont have enough for this");
+                Console.ReadLine();
+
             }
         }
 
@@ -66,6 +69,8 @@ namespace LemonadeStand_3DayStarter
             else
             {
                 Console.WriteLine("you dont have enough for this");
+                Console.ReadLine();
+
             }
         }
 
@@ -81,6 +86,7 @@ namespace LemonadeStand_3DayStarter
              else
             {
                 Console.WriteLine("you dont have enough for this");
+
             }
         }
 

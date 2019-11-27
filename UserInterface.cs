@@ -24,9 +24,9 @@ namespace LemonadeStand_3DayStarter
             return quantityOfItem;
         }
 
-        public static double GetNumberOfWeeks()
+        public static string GetNumberOfWeeks()
         {
-            return Convert.ToDouble(Console.ReadLine());
+            return Console.ReadLine();
         }
     }
 }

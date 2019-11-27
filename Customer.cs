@@ -10,12 +10,13 @@ namespace LemonadeStand_3DayStarter
 
     class Customer
     {
-        
+        public int percentToBuy;
         bool isCustomer;
         public List<string> nameList = new List<string> {"Billy" , "Jane" , "Ropert", "Janes weird cousin" };
         public Wallet customerWallet;
         public Customer()
         {
+            percentToBuy = 50;
             isCustomer = true;
             customerWallet = new Wallet(isCustomer);
         }

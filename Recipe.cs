@@ -16,6 +16,7 @@ namespace LemonadeStand_3DayStarter
         
             public Recipe(Inventory inventory)
             {
+                
                     
             }
 
