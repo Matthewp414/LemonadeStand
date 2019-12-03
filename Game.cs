@@ -8,12 +8,14 @@ namespace LemonadeStand_3DayStarter
 {
     class Game
     {
+        int result = 0;
         public List<Day> Week;
         public Store shop;
         public Player player;
-        bool doublecheck;
+        bool doubleCheck;
         int weekMultiplier;
         public Random tempF = new Random();
+        bool doubleCheckForAskToBuy;
 
         public Game()
         {
@@ -24,22 +26,23 @@ namespace LemonadeStand_3DayStarter
 
         public void DisplayDaysLeft( List<Day> list )
         {
-            Console.WriteLine("You have " + list.Count + "days left" );
+            Console.WriteLine("You have " + list.Count + " days left" );
             Console.ReadLine();
         }
 
         public void RungGame()
         {
-            int result = 0;
-            while (doublecheck == false || result < 0)
+            // getting number of weeks
+            
+            while (doubleCheck == false || result < 0)
             {
-                doublecheck = Int32.TryParse(UserInterface.GetNumberOfWeeks(), out result);  
+                doubleCheck = Int32.TryParse(UserInterface.GetNumberOfWeeks(), out result);  
                 weekMultiplier = result;            
             }
            
             
             weekMultiplier *= 7;
-            
+            //making the number of weeks into days 
             for (int i = 0; i < weekMultiplier; i++)
             {
                 Week.Add(new Day(player, shop, tempF));
@@ -47,19 +50,21 @@ namespace LemonadeStand_3DayStarter
             }
             
             DisplayDaysLeft(Week);
-            Console.WriteLine("Your forcast");
+            // showing the next 7 days forcast and running day (customer phase shop phase ect.)
             for (int eachDay = 0; eachDay < Week.Count; eachDay++)
             {
-
+                Console.WriteLine("Your forcast");
                 for (int i = 0; i < 7; i++) 
                 { 
-                Console.WriteLine("Forecast " +  Week[i].theWeather.condition + " Temp DegF: " + Week[i].temperature);
+                Console.WriteLine("Forcast " +  Week[i].theWeather.condition + " Temp DegF: " + Week[i].temperature);
                 }
                 Console.ReadLine();
                 Console.Clear();
+                player.recipe.MakingARecipe();
 
                 AskingToBuy(player, shop);
-                Week[eachDay].CustomerPhase(tempF, shop);
+                Week[eachDay].CustomerPhase(tempF, shop, player);
+                Console.WriteLine("Time to head home");
             }
         }
 
@@ -68,11 +73,16 @@ namespace LemonadeStand_3DayStarter
             bool validInput = false;
             while (validInput == false)
             {
-                Console.WriteLine("Please pick somthing to buy" + "\n" + "1)lemons" + shop.pricePerLemon + "\n" + "2)sugar" + shop.pricePerSugarCube + "\n" + "3)ice cubes" + shop.pricePerIceCube + "\n" + "4)cups" + shop.pricePerCup);
+                Console.WriteLine("Please pick somthing to buy" + "\n" + "1)lemons " + shop.pricePerLemon + "\n" + "2)sugar " + shop.pricePerSugarCube + "\n" + "3)ice cubes " + shop.pricePerIceCube + "\n" + "4)cups " + shop.pricePerCup);
                 Console.WriteLine("You have "+ "$" + player.wallet.money );
-                int pick = Int32.Parse(Console.ReadLine());
-            
-            
+                int pick ;
+                doubleCheckForAskToBuy = false;
+                while(doubleCheckForAskToBuy == false) 
+                {
+                    
+                    doubleCheckForAskToBuy = Int32.TryParse(Console.ReadLine(), out result);
+                }
+                pick = result;
                 switch (pick)
                 {
                     case 1:
@@ -96,8 +106,10 @@ namespace LemonadeStand_3DayStarter
                         Console.ReadLine();
                         break;
                 }   
-                Console.WriteLine("Do you want to buy more");
+                Console.WriteLine("Anything else?");
                 string pickString = Console.ReadLine();
+
+
                 switch (pickString)
                 {
                     case "yes":
@@ -116,6 +128,7 @@ namespace LemonadeStand_3DayStarter
                 }
             }
         }
+    
     }
    
 }

@@ -25,18 +25,14 @@ namespace LemonadeStand_3DayStarter
             wallet = new Wallet(isCustomer);
             recipe = new Recipe(inventory);
             pitcher = new Pitcher(recipe);
+
         }
 
         // member methods (CAN DO)
         public void MakeNewPitcher()
         {
-            if (inventory.lemons.Count < recipe.amountOfLemons || inventory.iceCubes.Count < recipe.amountOfIceCubes || inventory.sugarCubes.Count < recipe.amountOfSugarCubes )
-            {
-                Console.WriteLine("You slod out!");
-            }
-            else 
-            { 
-                for (int i = 0; i < recipe.amountOfLemons; i++)
+            
+              for (int i = 0; i < recipe.amountOfLemons; i++)
                 {
                     inventory.lemons.RemoveAt(0);
                 }
@@ -48,22 +44,44 @@ namespace LemonadeStand_3DayStarter
                 {
                     inventory.sugarCubes.RemoveAt(0);
                 }
-            }
+               
+                pitcher.cupsLeftInPitcher += 10;
         }   
 
 
         
-        public void CheckPitcher()
+        public bool CheckPitcher()
         {
             if (pitcher.cupsLeftInPitcher <= 0 )
             {
-               Console.WriteLine("Gotta make a new pitcher of lemonade");
-               MakeNewPitcher();
+                if (inventory.lemons.Count < recipe.amountOfLemons || inventory.iceCubes.Count < recipe.amountOfIceCubes || inventory.sugarCubes.Count < recipe.amountOfSugarCubes)
+                {
+                Console.WriteLine("Can not make new pticher");
+                return false;
+                }
+
+               
+                else 
+                {
+                    Console.WriteLine("Gotta make a new pitcher of lemonade");
+                    MakeNewPitcher();
+                    return true; 
+                   
+                }               
             }
+
             else
             {
-                
+                return true;
             }
+                
+               
+               
+                
         }
+          
+                
+            
+        
     }
 }

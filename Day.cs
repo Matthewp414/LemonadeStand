@@ -10,9 +10,9 @@ namespace LemonadeStand_3DayStarter
     class Day
     {
         public int temperature;
-        
+        public bool canMakePitcher;
         public List<Customer> customers;
-        Player player; 
+       
         
         public weather theWeather; 
         
@@ -70,38 +70,47 @@ namespace LemonadeStand_3DayStarter
                     customers.Add(new Customer());
                 }
             }
-            player = playerperam;
+            
             
         }
-        public void CustomerPhase(Random random, Store shop)
-        {   
-            for (int check = 0; check < customers.Count; check++)
-            {
-                            
-                bool purchase = CustomerCheck(customers[check], random);  
-                
-                if(purchase == false)
+        public void CustomerPhase(Random random, Store shop, Player player)
+        {
+            canMakePitcher = player.CheckPitcher();
+            if (canMakePitcher == true) 
+            { 
+                for (int check = 0; check < customers.Count; check++)
                 {
-                    Console.WriteLine(customers[check].nameList[check] + " Did not buy lemonade");
-                    Console.ReadLine();
-                }
+                            
+                    bool purchase = CustomerCheck(customers[check], random);  
                 
-                else if(player.recipe.pricePerCup < customers[check].customerWallet.money && purchase == true)
-                {                                 
-                    Console.WriteLine(customers[check].nameList[check] + " Bought Some Lemonade");
-                    shop.CalculateTransactionAmount(1, player.recipe.pricePerCup);
-                    player.pitcher.cupsLeftInPitcher -= 1;                    
-                    //taking customers wallet
-                    customers[check].customerWallet.money -= player.recipe.pricePerCup;
-                    //adding customers money to your wallet
-                    player.wallet.money += player.recipe.pricePerCup;
-                    Console.WriteLine("Your money is at" + player.wallet.money);
-                    player.CheckPitcher();
+                    if(purchase == false)
+                    {
+                        Console.WriteLine(customers[check].nameList[check] + " Did not buy lemonade");
+                        Console.ReadLine();
+                    }
+                
+                    else if(player.recipe.pricePerCup < customers[check].customerWallet.money && purchase == true)
+                    {                                 
+                        Console.WriteLine(customers[check].nameList[check] + " Bought Some Lemonade");
+                        shop.CalculateTransactionAmount(1, player.recipe.pricePerCup);
+                        player.pitcher.cupsLeftInPitcher -= 1;                    
+                        //taking customers wallet
+                        customers[check].customerWallet.money -= player.recipe.pricePerCup;
+                        //adding customers money to your wallet
+                        player.wallet.money += player.recipe.pricePerCup;
+                        Console.WriteLine("Your money is at $" + player.wallet.money);
+                        player.CheckPitcher();
                     
                     
 
+                    }
                 }
-            }          
+            }
+            else
+            {
+                Console.WriteLine("Sorry days over ");
+
+            }
            
         }
         

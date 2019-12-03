@@ -11,7 +11,7 @@ namespace LemonadeStand_3DayStarter
         public int cupsLeftInPitcher;
         public Pitcher(Recipe recipeperam )
         {
-            cupsLeftInPitcher = 10;
+            cupsLeftInPitcher = 0;
 
         }
         
