@@ -23,7 +23,7 @@ namespace LemonadeStand_3DayStarter
             if(isCustomer == true)
             {
                 Random randomMoney = new Random();
-                money = randomMoney.Next(0, 1);
+                money = randomMoney.NextDouble();
             }
             else 
             {

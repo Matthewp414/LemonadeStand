@@ -24,9 +24,15 @@ namespace LemonadeStand_3DayStarter
             return quantityOfItem;
         }
 
+
         public static string GetNumberOfWeeks()
         {
+            Console.WriteLine("How many weeks do you want to play?");
             return Console.ReadLine();
+        }
+        public static double GetNumber()
+        {
+            return Double.Parse(Console.ReadLine());
         }
     }
 }

@@ -10,74 +10,75 @@ namespace LemonadeStand_3DayStarter
     class Day
     {
         public int temperature;
-        Store shop = new Store();
+        
         public List<Customer> customers;
         Player player; 
-        Random randomCheck = new Random();
-        weather theWeather = new weather();
-        public string condition;
+        
+        public weather theWeather; 
+        
         int compareForCustomerCreation = 0;
-        public Day(Player playerperam, Store store)
+            
+        public Day(Player playerperam, Store store, Random random)
         {
             customers = new List<Customer> { };
-            theWeather.tempF = new Random();
-            condition = theWeather.forecast[theWeather.tempF.Next(0, 4)];
+            theWeather = new weather(random);
+            
 
 
-            if (condition == "Rainy")
+            if (theWeather.condition == "Rainy")
             {
-                temperature = theWeather.tempF.Next(35, 55);
-                while (randomCheck.Next(10, 25) < compareForCustomerCreation )
+                temperature = random.Next(35, 55);
+                while (random.Next(10, 25) > compareForCustomerCreation )
                 {
                     compareForCustomerCreation++;
                     customers.Add(new Customer());
                 }
             }
-            else if (condition == "Snowing")
+            else if (theWeather.condition == "Snowing")
             {
-                temperature = theWeather.tempF.Next(0, 30);
-                while (randomCheck.Next(1, 6) < compareForCustomerCreation)
+                temperature = random.Next(0, 30);
+                while (random.Next(1, 6) > compareForCustomerCreation)
                 {
                     compareForCustomerCreation++;
                     customers.Add(new Customer());
                 }
             }
-            else if (condition == "Windy")
+            else if (theWeather.condition == "Windy")
             {
-                temperature = theWeather.tempF.Next(40, 60);
-                while (randomCheck.Next(9, 17) < compareForCustomerCreation)
+                temperature = random.Next(40, 60);
+                while (random.Next(9, 17) > compareForCustomerCreation)
                 {
                     compareForCustomerCreation++;
                     customers.Add(new Customer());
                 }
             }
-            else if (condition == "Clear")
+            else if (theWeather.condition == "Clear")
             {
-                temperature = theWeather.tempF.Next(50, 70);
-                while (randomCheck.Next(20, 45) < compareForCustomerCreation)
+                temperature = random.Next(50, 70);
+                while (random.Next(20, 45) > compareForCustomerCreation)
                 {
                     compareForCustomerCreation++;
                     customers.Add(new Customer());
                 }
             }
-            else if (condition == "Sunny")
+            else if (theWeather.condition == "Sunny")
             {
-                temperature = theWeather.tempF.Next(60, 90);
-                while (randomCheck.Next(25, 65) < compareForCustomerCreation)
+                temperature = random.Next(60, 90);
+                while (random.Next(25, 65) > compareForCustomerCreation)
                 {
                     compareForCustomerCreation++;
                     customers.Add(new Customer());
                 }
             }
             player = playerperam;
-            shop = store;
+            
         }
-        public void CustomerPhase()
-        {
+        public void CustomerPhase(Random random, Store shop)
+        {   
             for (int check = 0; check < customers.Count; check++)
             {
                             
-                bool purchase = CustomerCheck(customers[check]);  
+                bool purchase = CustomerCheck(customers[check], random);  
                 
                 if(purchase == false)
                 {
@@ -89,13 +90,14 @@ namespace LemonadeStand_3DayStarter
                 {                                 
                     Console.WriteLine(customers[check].nameList[check] + " Bought Some Lemonade");
                     shop.CalculateTransactionAmount(1, player.recipe.pricePerCup);
-                    //taking supplies away from pitcher
-                    
+                    player.pitcher.cupsLeftInPitcher -= 1;                    
                     //taking customers wallet
                     customers[check].customerWallet.money -= player.recipe.pricePerCup;
                     //adding customers money to your wallet
                     player.wallet.money += player.recipe.pricePerCup;
                     Console.WriteLine("Your money is at" + player.wallet.money);
+                    player.CheckPitcher();
+                    
                     
 
                 }
@@ -103,7 +105,7 @@ namespace LemonadeStand_3DayStarter
            
         }
         
-        public bool CustomerCheck(Customer patron) 
+        public bool CustomerCheck(Customer patron, Random random) 
         {
             if (temperature <= 39)
             {
@@ -128,7 +130,7 @@ namespace LemonadeStand_3DayStarter
             }
             
 
-            int check = randomCheck.Next(1, 100);  
+            int check = random.Next(1, 100);  
             
             if(patron.percentToBuy >= check)
             {
