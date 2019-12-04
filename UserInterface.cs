@@ -24,7 +24,7 @@ namespace LemonadeStand_3DayStarter
             return quantityOfItem;
         }
 
-
+        //single usage just grabbing a answer 
         public static string GetNumberOfWeeks()
         {
             Console.WriteLine("How many weeks do you want to play?");

@@ -29,6 +29,7 @@ namespace LemonadeStand_3DayStarter
         }
 
         // member methods (CAN DO)
+        //single usage just taking away from inventory 
         public void MakeNewPitcher()
         {
             

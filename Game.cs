@@ -65,6 +65,7 @@ namespace LemonadeStand_3DayStarter
                 AskingToBuy(player, shop);
                 Week[eachDay].CustomerPhase(tempF, shop, player);
                 Console.WriteLine("Time to head home");
+                Console.Clear();
             }
         }
 

@@ -12,7 +12,7 @@ namespace LemonadeStand_3DayStarter
         public int temperature;
         public bool canMakePitcher;
         public List<Customer> customers;
-       
+        public int customerCount;
         
         public weather theWeather; 
         
@@ -75,13 +75,14 @@ namespace LemonadeStand_3DayStarter
         }
         public void CustomerPhase(Random random, Store shop, Player player)
         {
+            
             canMakePitcher = player.CheckPitcher();
             if (canMakePitcher == true) 
             { 
                 for (int check = 0; check < customers.Count; check++)
                 {
                             
-                    bool purchase = CustomerCheck(customers[check], random);  
+                    bool purchase = CustomerCheck(customers[check], random, player);  
                 
                     if(purchase == false)
                     {
@@ -91,7 +92,7 @@ namespace LemonadeStand_3DayStarter
                 
                     else if(player.recipe.pricePerCup < customers[check].customerWallet.money && purchase == true)
                     {                                 
-                        Console.WriteLine(customers[check].nameList[check] + " Bought Some Lemonade");
+                        Console.WriteLine(customers[check].nameList[random.Next(6)] + " Bought Some Lemonade");
                         shop.CalculateTransactionAmount(1, player.recipe.pricePerCup);
                         player.pitcher.cupsLeftInPitcher -= 1;                    
                         //taking customers wallet
@@ -99,8 +100,9 @@ namespace LemonadeStand_3DayStarter
                         //adding customers money to your wallet
                         player.wallet.money += player.recipe.pricePerCup;
                         Console.WriteLine("Your money is at $" + player.wallet.money);
+                        customerCount++;
                         player.CheckPitcher();
-                    
+                        
                     
 
                     }
@@ -114,7 +116,7 @@ namespace LemonadeStand_3DayStarter
            
         }
         
-        public bool CustomerCheck(Customer patron, Random random) 
+        public bool CustomerCheck(Customer patron, Random random, Player player) 
         {
             if (temperature <= 39)
             {
@@ -131,6 +133,13 @@ namespace LemonadeStand_3DayStarter
                 }
             }
             if (temperature <= 90 && temperature >= 61)
+            {
+                foreach (Customer customer in customers)
+                {
+                    customer.percentToBuy += 20;
+                }
+            }
+            if (player.recipe.pricePerCup <= .50)
             {
                 foreach (Customer customer in customers)
                 {

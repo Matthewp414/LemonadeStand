@@ -12,7 +12,7 @@ namespace LemonadeStand_3DayStarter
     {
         public int percentToBuy;
         bool isCustomer;
-        public List<string> nameList = new List<string> {"Billy" , "Jane" , "Ropert", "Janes weird cousin" };
+        public List<string> nameList = new List<string> {"Billy" , "Jane" , "Ropert", "Janes weird cousin", "Ana", "Felipe" };
         public Wallet customerWallet;
         public Customer()
         {
